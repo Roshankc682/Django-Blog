@@ -1,6 +1,16 @@
-To Build app
+# Simple BlogSite
+This is blog site where user can add,modify.delete Blog data.
 
-1) python manage.py makemigrations
-2) python manage.py migrate
-3) python magage runserver
+It's build in django
 
+>pip install -r requirements.txt
+
+>Create blog database in mysql
+
+>python manage.py makemigrations
+
+>python manage.py migrate
+
+>python manage.py runserver 
+
+****ENJOY****
