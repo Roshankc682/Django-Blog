@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+<!--id	ename	eemail	password	register_add img-->
+<div style="width:50%;margin-top:10px;" class="container shadow-lg p-3 mb-4 bg-white">
+    <center><h3>Register for login</h3></center>
+{% if messages %}
+   {% for message in messages %}
+    <div class="alert alert-secondary fade show" role="alert">
+     <strong>{{ message }}</strong>
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+  {% endfor %}
+{% endif %}
+
+    <form method="POST" action="/register_add">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" name="name" class="form-control" id="exampleInputname1" aria-describedby="emailHelp" placeholder="Enter name" required>
+        </div>
+         <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+           </div>
+         <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+        </div>
+         <div class="form-group">
+            <label for="exampleInputPassword1">Repeat Password</label>
+            <input type="password" name="repeat_password" class="form-control" id="exampleInputRepeatPassword2" placeholder="Password" required>
+        </div>
+        <button class="btn btn-primary" type="submit" >Register</button>
+    </form>
+</div>
+{% include 'footer_after_login.html' %}

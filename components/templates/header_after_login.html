@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging sites</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+                function image_name_copy() {
+              var copyText = document.getElementById("image_url");
+              copyText.select();
+              copyText.setSelectionRange(0, 99999)
+              document.execCommand("copy");
+              alert(copyText.value);
+            }
+
+      tinymce.init({
+          selector: '#basic-conf',
+          width: 950,
+          height: 400,
+          plugins: [
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'table emoticons template paste help'
+          ],
+          toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+            'forecolor backcolor emoticons | help',
+          menu: {
+            favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons'}
+          },
+          menubar: 'favs file edit view insert format tools table help',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+
+    <style>
+    .footer_footer {
+           bottom:0;
+    }
+  .container_details
+        {
+                display: grid;
+                grid-gap: 1rem;
+                  grid-template-columns: 150px auto;
+                grid-template-areas:
+                    'side_nav_bar side_bar_elaborate';
+        }
+        .side_nav_bar_style{
+            border-radius: 20px;
+            margin-top:10px;
+        }
+
+  side_nav_bar
+  {
+     grid-area: side_nav_bar;
+    /*border: 1px solid rgb(232, 240, 226);*/
+    /*box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    padding: 3px;
+    margin: 2px;
+  }
+  side_bar_elaborate
+  {
+      background-color: #eae2e2;
+     grid-area: side_bar_elaborate;
+     /*border: 1px solid rgb(232, 240, 226);*/
+    /*box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    padding: 3px;
+    margin: 5px;
+  }
+
+@media only screen and (max-width: 700px)
+{
+
+  body
+  {
+    /*background-color: lightblue;*/
+  }
+
+  .container_details
+        {
+                display: grid;
+                grid-template-columns: 100% 100%;
+                grid-template-areas:
+                    'side_nav_bar'
+                    'detals_of_product';
+        }
+}
+
+.style_side_nav {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 5px 10px;
+  margin:5px;
+  text-align: center;
+  margin: 4px 2px;
+  transition: 0.3s;
+  border-radius:10px;
+}
+
+.style_side_nav:hover {
+  background-color: aqua;
+  font-size:15px;
+}
+
+    </style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">
+    <img src="{% static 'image/header.png' %}" style="border-radius: 50%" width="40" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    Blog
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/logout">logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+

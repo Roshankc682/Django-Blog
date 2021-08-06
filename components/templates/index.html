@@ -1,0 +1,99 @@
+{% if session_key %}
+    {% include "header_after_login.html" %}
+{% else %}
+    {% include "header.html" %}
+{% endif %}
+{% if messages %}
+    {% for message in messages %}
+<br>
+    <div class="container alert alert-danger alert-dismissible fade show" role="alert" style="width:30%;">
+        <strong>{{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if session_key %}
+    <div style="background-image: url(''); class="shadow-lg p-3 mb-5 bg-white rounded">
+<!--            <h4 class="float-left">{{name_of_user}} </h4><br><br>-->
+
+        <br><br>{% for key_id, value_id in iid_post %}
+         {% for key_title, value_title in title_ %}
+            {% if key_id == key_title %}
+                {% for key_blog_post, value_blog_post in blog_post %}
+                    {% if key_id == key_blog_post %}
+                        {% for key_data_post, value_data_post in data_post %}
+                            {% if key_id == key_data_post %}
+                                {% for key_uiid_name, value_uiid_name in uiid_name %}
+                                    {% if key_id == key_uiid_name %}
+                                       <center><div class="card" style="margin:5px;width:50%">
+                                          <div class="card-body">
+                                              <div class="float-left">
+                                                 Title : {{value_title}}
+                                              </div>
+                                              <div class="float-right">
+                                                  Publish : {{value_data_post}}
+                                                  <form action="/readmore_details_blog" method="GET">
+                                                      <input type="hidden" value="{{value_id}}" name="post_id">
+                                                      <input type="hidden" value="{{value_uiid_name}}" name="post_uid">
+                                                      <button type="submit" class="btn btn-success">ReadMore</button>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                        </div></center>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+         {% endfor %}
+        {% endfor %}<br><br>
+           </div>
+
+{% else %}
+       <div style="background-image: url(''); class="shadow-lg p-3 mb-5 bg-white rounded">
+<!--            <h4 class="float-left">{{name_of_user}} </h4><br><br>-->
+
+        <br><br>{% for key_id, value_id in iid_post %}
+         {% for key_title, value_title in title_ %}
+            {% if key_id == key_title %}
+                {% for key_blog_post, value_blog_post in blog_post %}
+                    {% if key_id == key_blog_post %}
+                        {% for key_data_post, value_data_post in data_post %}
+                            {% if key_id == key_data_post %}
+                                {% for key_uiid_name, value_uiid_name in uiid_name %}
+                                    {% if key_id == key_uiid_name %}
+                                       <center><div class="card" style="margin:5px;width:50%">
+                                          <div class="card-body">
+                                              <div class="float-left">
+                                                 Title : {{value_title}}
+                                              </div>
+                                              <div class="float-right">
+                                                  Publish : {{value_data_post}}
+                                                  <form action="/readmore_details_blog" method="GET">
+                                                      <input type="hidden" value="{{value_id}}" name="post_id">
+                                                      <input type="hidden" value="{{value_uiid_name}}" name="post_uid">
+                                                      <button type="submit" class="btn btn-success">ReadMore</button>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                        </div></center>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+         {% endfor %}
+        {% endfor %}<br><br>
+           </div>
+{% endif %}
+
+
+
+{% include "footer_after_login.html" %}

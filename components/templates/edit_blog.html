@@ -1,0 +1,27 @@
+{% if session_key %}
+    {% include "header_after_login.html" %}
+{% else %}
+    {% include "header.html" %}
+{% endif %}
+
+{% autoescape off %}
+<div class="container shadow-lg p-3 mb-5 bg-white rounded"><br>
+    <center><h3>Let's edit your Blog</h3></center>
+  <form action="/finally_edited" method="POST">
+      <input type="hidden" name="post_id" value="{{post_id}}">
+   <center>
+    {% csrf_token %}
+  {% for key_title, value_title in data_title %}
+    <input style="width:80%" type="text" class="form-control" placeholder="" name="Title_of_post" value="{{value_title}}"><br>
+  {% endfor %}
+  {% for key, value in data_post %}
+    <textarea id="basic-conf" name="">
+      {{value}}
+    </textarea><br>
+  {% endfor %}
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+   </center>
+ </form>
+{% endautoescape %}
+</div>
+{% include "footer_after_login.html" %}

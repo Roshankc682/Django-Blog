@@ -1,0 +1,31 @@
+{% if session_key %}
+    {% include "header_after_login.html" %}
+{% else %}
+    {% include "header.html" %}
+{% endif %}
+
+ <div style="margin:2%;" class="shadow-lg p-3 mb-5 bg-white rounded">
+    {% autoescape off %}
+      {% for key, value in data_post %}
+                {% for key_title, value_title in data_title %}
+                      <div class="card">
+                      <div class="card-header">
+                          <img title="{{read_more_name}}" src="http://127.0.0.1:8000/image/{{image_name}}"style="width:50px;height:50px;border-radius:50%;" /><small><strong>Author : {{read_more_name}}<p style="float: right;">
+                          {{read_more_email}}<br>{{time_time}}</strong></p></small>
+                          <center><h3>{{value_title}}</h3></center>
+                      </div>
+                      <div class="card-body">
+                          {{value}}
+                      </div><br>
+                          <center><button type="button" class="btn btn-dark" onclick="goBack()">Go Back</button></center><br>
+                    </div>
+                {% endfor %}
+      {% endfor %}
+    {% endautoescape %}
+</div>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+{% include "footer_after_login.html" %}

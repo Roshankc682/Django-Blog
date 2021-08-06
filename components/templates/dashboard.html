@@ -1,0 +1,178 @@
+{% if session_key %}
+    {% include "header_after_login.html" %}
+{% else %}
+    {% include "header.html" %}
+{% endif %}
+
+<div class="container_details" style="background-color:white;margin-top:40px;">
+     <side_nav_bar class="side_nav_bar_style">
+                <strong><a href="/write_a_blog" class="style_side_nav" style="text-decoration: none;color: blue;cursor: pointer;">Write a blog</a></strong><br><br>
+                <strong><a href="/edit_blog" class="style_side_nav" style="text-decoration: none;color: blue;cursor: pointer;">Edit a blog</a></strong><br><br>
+                <strong><a href="/settings" class="style_side_nav" style="text-decoration: none;color: blue;cursor: pointer;">Settings</a></strong><br><br>
+                <strong><a href="/media" class="style_side_nav" style="text-decoration: none;color: blue;cursor: pointer;">Media</a></strong><br><br>
+        </side_nav_bar>
+
+
+        <side_bar_elaborate class="shadow-lg p-3 mb-5 bg-white rounded">
+<!--            {{request.get_full_path}}-->
+            {% if request.get_full_path == "/dashboard" %}
+                <center><div class="alert alert-primary" role="alert">
+                    <strong>Dashboard of {{name_of_user}}</strong>
+                </div></center>
+                     {% if messages %}
+                    {% for message in messages %}
+                    <div class="container alert alert-success alert-dismissible fade show" role="alert" style="width:30%;">
+                        <strong>{{message}}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% autoescape off %}
+                {% for key, value in data_post %}
+                    {% for key_title, value_title in data_title %}
+                            {% if key == key_title %}
+                                {% for key_id, value_id in data_uid %}
+                                    {% if key_id == key_title %}
+<!--                                           {{value_title}} :: {{value}} :: {{value_id}}-->
+                                           {% if key|divisibleby:2 %}
+                <!--                       even :: {{key}}<br>-->
+                                                 <center><div class="card text-white bg-primary mb-3 mr-2" style="max-width: 18rem;float:left;">
+                                                  <div class="card-header"><h3 title="{{value_title}}">{{value_title|truncatechars:15}}</h3></div>
+                                                     <div class="card-body">
+
+                                                         <form action="/Read" method="GET">
+                                                         <input type="hidden" name="post_id" value="{{value_id}}">
+                                                        <button type="submit" style="float:left;margin:2px;" class="btn btn-secondary">Read</button>
+                                                         </form>
+
+                                                         <form action="/Edit" method="POST">
+                                                             {% csrf_token %}
+                                                         <input type="hidden" name="post_id" value="{{value_id}}">
+                                                        <button type="submit" style="float:left;margin:2px;" class="btn btn-danger">Edit</button>
+                                                         </form>
+
+                                                         <form action="/Delete" method="POST">
+                                                             {% csrf_token %}
+                                                         <input type="hidden" name="post_id" value="{{value_id}}">
+                                                        <button type="submit" style="float:left;margin:2px;" class="btn btn-danger">Delete</button>
+                                                         </form>
+<!--                                                         <small><p class="card-text">{{value|truncatechars:20}}</p></small>-->
+                                                  </div>
+                                                </div></center>
+                                         {% else %}
+                <!--                        odd :: {{key}}<br>-->
+                                             <center><div class="card text-white bg-success mb-3 mr-2" style="max-width: 18rem;float:left;">
+                                                 <div class="card-header"><h3 title="{{value_title}}">{{value_title|truncatechars:15}}</h3></div>
+                                                    <div class="card-body">
+
+
+                                                         <form action="/Read" method="GET">
+
+                                                         <input type="hidden" name="post_id" value="{{value_id}}">
+                                                        <button type="submit" style="float:left;margin:2px;" class="btn btn-secondary">Read</button>
+                                                         </form>
+
+                                                         <form action="/Edit" method="POST">
+                                                             {% csrf_token %}
+                                                         <input type="hidden" name="post_id" value="{{value_id}}">
+                                                        <button type="submit" style="float:left;margin:2px;" class="btn btn-danger">Edit</button>
+                                                         </form>
+
+                                                         <form action="/Delete" method="POST">
+                                                             {% csrf_token %}
+                                                         <input type="hidden" name="post_id" value="{{value_id}}">
+                                                        <button type="submit" style="float:left;margin:2px;" class="btn btn-danger">Delete</button>
+                                                         </form>
+<!--                                                    <small><p class="card-text">{{value|truncatechars:20}}</p></small>-->
+                                                </div>
+                                            </div></center>
+
+                                           {% endif%}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                {% endfor %}
+               {% endfor %}
+            {% endautoescape %}
+
+            {% elif request.get_full_path == "/settings/" %}
+            <center><h3>Setup your Profile</h3></center><br>
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="container alert alert-success alert-dismissible fade show" role="alert" style="width:30%;">
+                        <strong>{{message}}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            <img src="/image/{{image_name}}" style="width:100px;height:100px;border-radius:50%;" alt="No thing here"/>
+               <div style="width:200px;background-color:#bfbce8;" class="shadow-sm p-3 mb-5 rounded">
+
+                   <form action="/upload_profile_pic" method = "post" enctype="multipart/form-data">
+                       {% csrf_token %}
+                    <label for="img">Upload Image:</label><br>
+                    <input class="btn btn-dark" style="width:120px;" type="file" id="dh" name="img" accept="image/*"><br><br>
+                    <input class="btn btn-dark" type="submit">
+                   </form>
+               </div>
+            {% elif request.get_full_path == "/edit_blog/" %}
+                <h1>This is Edit blog page</h1>
+            {% elif request.get_full_path == "/write_a_blog/" %}
+                    <center><h1>Let's write a blog</h1></center>
+                    <form action="/blog_saved" method="POST">
+                        <center>
+                            {% csrf_token %}
+                            <input style="width:80%" type="text" class="form-control" placeholder="Tittle of blog" name="Title_of_post"><br>
+                        <textarea id="basic-conf" name="textarea_to_save">
+                            Let's start to type .....
+                        </textarea><br>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+                        </center>
+                    </form>
+            {% elif request.get_full_path == "/media/" %}
+                    {% for message in messages %}
+                        <div class="container alert alert-success alert-dismissible fade show" role="alert" style="width:30%;">
+                            <strong>{{message}}
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    {% endfor %}
+
+                    <form action="/upload_profile_media" method = "post" enctype="multipart/form-data">
+                    <center><h3>let's upload photo that you will love to post in Blog</h3></center>
+                       {% csrf_token %}
+                    <label for="img">Upload Image:</label><br>
+                    <input class="btn btn-dark" style="width:120px;" type="file" id="img_" name="img" accept="image/*"><br><br>
+                    <input class="btn btn-dark" type="submit">
+                   </form>
+            <br>
+
+            {% for key, value in data_image_name %}
+
+            <form action="/delete_image" method="post">
+                {% csrf_token %}
+
+              <div class="float-left" style="margin:2px;">
+                  <img id="myInput" style="width:100px;height:100px;" title="{{value}}" value="{{value}}" name="name_of_image" class="card-img-top" src="/static/{{uid_name_of_user_logged}}/{{value}}">
+                  <input type="hidden" value="{{value}}" name="name_of_image">
+                  <br><input type="submit" style="margin:2px;" type="button" class="btn btn-danger" value="Delete">
+                </div>
+            </form>
+            {% endfor %}
+            {% else %}
+                <h1>Are you kidding What's on your mind</h1>
+            {% endif %}
+        </side_bar_elaborate>
+
+
+</div>
+
+{% include "footer_after_login.html" %}
+
