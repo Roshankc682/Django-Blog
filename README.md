@@ -1,4 +1,4 @@
-# Simple BlogSite
+# Djagno BlogSite
 This is blog site where user can add,modify.delete Blog data.
 
 It's build in django
